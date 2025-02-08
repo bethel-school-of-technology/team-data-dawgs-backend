@@ -1,4 +1,4 @@
-import { DataTypes } from "sequelize";
+import { DataTypes, Model } from "sequelize";
 import sequelize from "../config/db"; 
 
 const User = sequelize.define("User", {
@@ -7,7 +7,7 @@ const User = sequelize.define("User", {
     autoIncrement: true,
     primaryKey: true,
   },
-  name: {
+  username: {
     type: DataTypes.STRING,
     allowNull: false,
   },
@@ -16,6 +16,12 @@ const User = sequelize.define("User", {
     allowNull: false,
     unique: true,
   },
+  admin: {
+    type: DataTypes.BOOLEAN,
+    allowNull: false,
+    defaultValue: false,
+
+  }
 });
 
 export default User;
