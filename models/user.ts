@@ -1,7 +1,7 @@
 import { DataTypes, Model } from "sequelize";
 import sequelize from "../config/db"; 
 
-const User = sequelize.define("User", {
+const User = sequelize.define("User", { //change to User.define per Ryan link
   id: {
     type: DataTypes.INTEGER,
     autoIncrement: true,

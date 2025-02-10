@@ -1,6 +1,10 @@
 import { Request, Response } from "express";
 import User from "../models/user";
 
+interface Params{ //new
+    id: string,
+}
+
 export const getUsers = async (req: Request, res: Response) => {
   try {
     const users = await User.findAll();
@@ -20,7 +24,7 @@ export const createUser = async (req: Request, res: Response) => {
   }
 };
 
-export const updateUser = async (req: Request, res: Response) => {
+export const updateUser = async (req: Request<Params>, res: Response) => {
   try {
     const { id } = req.params;
     const { username, email, admin } = req.body;
@@ -37,7 +41,8 @@ export const updateUser = async (req: Request, res: Response) => {
   }
 };
 
-export const deleteUser = async (req: Request, res: Response) => {
+export const deleteUser = async (req: Request<{ id:string }, {}, typeof User>, res: Response) => { //new 
+
   try {
     const { id } = req.params;
     const user = await User.findByPk(id);
