@@ -1,23 +1,53 @@
-//category - feelings - string
-//location - book+chapter verse from bible-api.com -->John+3:16 - string
+import { DataTypes, InferAttributes, InferCreationAttributes, Model, Sequelize } from "sequelize";
 
-import { DataTypes } from "sequelize";
-import sequelize from "../config/db";
+export class Verse extends Model<InferAttributes<Verse>, InferCreationAttributes<Verse>>{
+  declare id: number;
+  declare category: string;
+  declare location: string;
+}
 
-const Verse = sequelize.define("Verse", {
-  id: {
-    type: DataTypes.INTEGER,
-    autoIncrement: true,
-    primaryKey: true,
-  },
-  category: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  location: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-});
+export function MessageFactory(sequelize: Sequelize) {
+  Verse.init({
+    id: {
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      primaryKey: true,
+      allowNull: false
+    },
+    category: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true
+    },
+    location: {
+      type: DataTypes.STRING,
+      allowNull: false
+    }
+  }, {
+    freezeTableName: true,
+    tableName: 'verse',
+    sequelize
+  });
+}
 
-export default Verse;
+//
+// import { DataTypes } from "sequelize";
+// import sequelize from "../config/db";
+//
+// const Verse = sequelize.define("Verse", {
+//   id: {
+//     type: DataTypes.INTEGER,
+//     autoIncrement: true,
+//     primaryKey: true,
+//   },
+//   category: {
+//     type: DataTypes.STRING,
+//     allowNull: false,
+//   },
+//   location: {
+//     type: DataTypes.STRING,
+//     allowNull: false,
+//   },
+// });
+//
+// export default Verse;

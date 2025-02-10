@@ -1,5 +1,6 @@
-import { Request, Response } from "express";
-import User from "../models/user";
+import {Request, Response} from "express";
+import {User} from "../models/user";
+
 
 interface Params{ //new
     id: string,
@@ -17,32 +18,53 @@ export const getUsers = async (req: Request, res: Response) => {
 export const createUser = async (req: Request, res: Response) => {
   try {
     const { username, email, admin } = req.body;
-    const newUser = await User.create({ username, email, admin });
+    const newUser = new User();
+    newUser.username = username;
+    newUser.email = email;
+    newUser.admin = admin;
+    await newUser.save();
     res.status(201).json(newUser);
   } catch (error) {
     res.status(500).json({ error: "Error creating user" });
   }
 };
 
-export const updateUser = async (req: Request<Params>, res: Response) => {
-  try {
-    const { id } = req.params;
-    const { username, email, admin } = req.body;
-    const user = await User.findByPk(id);
+// export const updateUser = async (req: Request, res: Response, next: any) => {
+//   try {
+//     const { id } = req.params;
+//     const { username, email, admin } = req.body;
+//     const user = await User.findByPk(id);
+//
+//     if (!user) {
+//       return res.status(404).json({ error: "User not found" });
+//     }
+//
+//     await user.update({ username, email, admin });
+//     res.json(user);
+//   } catch (error) {
+//     res.status(500).json({ error: "Error updating user" });
+//   }
+// };
 
-    if (!user) {
-      return res.status(404).json({ error: "User not found" });
-    }
+export const updateUser = async (req: Request, res: Response) => {
+  let id = req.params.id;
+  let newUser = req.body;
 
-    await user.update({ username, email, admin });
-    res.json(user);
-  } catch (error) {
-    res.status(500).json({ error: "Error updating user" });
+  let userFound = await User.findByPk(id);
+
+  if (userFound && userFound?.id == newUser.userId
+      && newUser.user && newUser.username) {
+    await User.update(newUser, {
+      where: { id: id }
+    });
+    res.status(200).json();
   }
-};
+  else {
+    res.status(400).json();
+  }
+}
 
-export const deleteUser = async (req: Request<{ id:string }, {}, typeof User>, res: Response) => { //new 
-
+export const deleteUser = async (req:Request, res:Response) => {
   try {
     const { id } = req.params;
     const user = await User.findByPk(id);
@@ -51,8 +73,10 @@ export const deleteUser = async (req: Request<{ id:string }, {}, typeof User>, r
       return res.status(404).json({ error: "User not found" });
     }
 
-    await user.destroy();
-    res.json({ message: "User deleted successfully" });
+    await User.destroy({
+      where: {id: id}
+    });
+    res.status(200).json({ message: "User deleted successfully" });
   } catch (error) {
     res.status(500).json({ error: "Error deleting user" });
   }
