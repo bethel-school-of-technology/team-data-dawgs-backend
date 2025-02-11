@@ -6,6 +6,6 @@ const router = express.Router();
 router.get("/", getVerses);
 router.post("/", createVerse);
 router.put("/:id", updateVerse);
-// router.delete("/:id", deleteVerse);
+router.delete("/:id", deleteVerse);
 
 export default router;
