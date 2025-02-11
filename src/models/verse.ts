@@ -6,7 +6,7 @@ export class Verse extends Model<InferAttributes<Verse>, InferCreationAttributes
   declare location: string;
 }
 
-export function MessageFactory(sequelize: Sequelize) {
+export function VerseFactory(sequelize: Sequelize) {
   Verse.init({
     id: {
       type: DataTypes.INTEGER,
@@ -29,25 +29,3 @@ export function MessageFactory(sequelize: Sequelize) {
     sequelize
   });
 }
-
-//
-// import { DataTypes } from "sequelize";
-// import sequelize from "../config/db";
-//
-// const Verse = sequelize.define("Verse", {
-//   id: {
-//     type: DataTypes.INTEGER,
-//     autoIncrement: true,
-//     primaryKey: true,
-//   },
-//   category: {
-//     type: DataTypes.STRING,
-//     allowNull: false,
-//   },
-//   location: {
-//     type: DataTypes.STRING,
-//     allowNull: false,
-//   },
-// });
-//
-// export default Verse;

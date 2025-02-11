@@ -52,8 +52,7 @@ export const updateUser = async (req: Request, res: Response) => {
 
   let userFound = await User.findByPk(id);
 
-  if (userFound && userFound?.id == newUser.userId
-      && newUser.user && newUser.username) {
+  if (userFound) {
     await User.update(newUser, {
       where: { id: id }
     });
