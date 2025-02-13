@@ -3,9 +3,11 @@ import morgan from 'morgan';
 import { db } from './models';
 import verseRoutes from "./routes/verseRoutes";
 import userRoutes from "./routes/userRoutes";
+import cors from 'cors';
 
 const app = express();
 
+app.use(cors());
 app.use(morgan('dev'));
 
 app.use(express.json());
