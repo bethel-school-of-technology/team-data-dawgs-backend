@@ -4,6 +4,7 @@ export class Verse extends Model<InferAttributes<Verse>, InferCreationAttributes
   declare id: number;
   declare category: string;
   declare location: string;
+  declare content: string;
 }
 
 export function VerseFactory(sequelize: Sequelize) {
@@ -21,6 +22,10 @@ export function VerseFactory(sequelize: Sequelize) {
     },
     location: {
       type: DataTypes.STRING,
+      allowNull: false
+    },
+    content: {
+      type: DataTypes.TEXT,
       allowNull: false
     }
   }, {

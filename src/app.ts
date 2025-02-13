@@ -2,6 +2,7 @@ import express, { NextFunction, Request, Response } from 'express'
 import morgan from 'morgan';
 import { db } from './models';
 import verseRoutes from "./routes/verseRoutes";
+import journalRoutes from "./routes/journalRoutes";
 import userRoutes from "./routes/userRoutes";
 import cors from 'cors';
 
@@ -15,6 +16,7 @@ app.use(express.urlencoded({extended: true}));
 
 // routes
 app.use("/verses", verseRoutes);
+app.use("/journals", journalRoutes);
 app.use("/users", userRoutes);
 
 app.use((req: Request, res: Response, next: NextFunction) => {
@@ -23,7 +25,7 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 
 // Syncing our database
 db.sync(
-    // {alter: true}
+    {alter: true}
 ).then(() => {
     console.info("connected to the database!")
 });
