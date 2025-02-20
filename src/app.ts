@@ -4,6 +4,7 @@ import { db } from './models';
 import verseRoutes from "./routes/verseRoutes";
 import journalRoutes from "./routes/journalRoutes";
 import userRoutes from "./routes/userRoutes";
+import sermonRoutes from "./routes/sermonRoutes";
 import cors from 'cors';
 
 const app = express();
@@ -18,6 +19,7 @@ app.use(express.urlencoded({extended: true}));
 app.use("/verses", verseRoutes);
 app.use("/journals", journalRoutes);
 app.use("/users", userRoutes);
+app.use("/sermons", sermonRoutes);
 
 app.use((req: Request, res: Response, next: NextFunction) => {
     res.status(404).end();
@@ -25,7 +27,7 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 
 // Syncing our database
 db.sync(
-   // {alter: true}
+//    {alter: true}
 ).then(() => {
     console.info("connected to the database!")
 });

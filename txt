@@ -1,0 +1,18 @@
+check versesController notes -----DONE
+add all verses using postman -----DONE
+get verse by category; this will be a new endpoint getVersebyCatergory - will be in versesController ---DONE
+
+
+implement sermons; use preexisting framework for verses on Sermons
+
+
+
+check with Ryan
+
+Post localhost:3000//sermon 
+
+{
+    "category": "peace",
+    "url": "",
+    
+}
