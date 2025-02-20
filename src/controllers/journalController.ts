@@ -13,13 +13,14 @@ export const getJournals = async (req: Request, res: Response) => {
 
 export const createJournal = async (req: Request, res: Response) => {
     try {
-        const { category, location } = req.body;
+        const { content } = req.body;
         const newJournal = new Journal();
+        newJournal.content = content;
         await newJournal.save();
         res.status(201).json(newJournal);
     } catch (error) {
         console.error("Error creating journal:", error);
-        res.status(500).json({ error: "Error creating journal" });
+        res.status(500).json({ error });
     }
 };
 
