@@ -31,5 +31,5 @@ db.sync(
 ).then(() => {
     console.info("connected to the database!")
 });
-
+ 
 app.listen(3000);
