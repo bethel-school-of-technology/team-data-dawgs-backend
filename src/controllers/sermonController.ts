@@ -9,7 +9,7 @@ export const getSermons = async (req: Request, res: Response) => {
         console.error("Error fetching sermons:", error);
         res.status(500).json({ error: "Error fetching sermons" });
     }
-}; //copy endpoint "index endpoint" + add optional category param -->This will redo code above
+};
 
 export const createSermon = async (req: Request, res: Response) => {
     console.log(req.body);
@@ -30,10 +30,6 @@ export const updateSermon = async (req: Request, res: Response) => {
     let sermonFound = await Sermon.findByPk(id);
 
     if (sermonFound) {
-       /* await Sermon.update(newSermon, {
-            where: { id: id }
-        });
-        res.status(200).json(); */
     }
     else {
         res.status(400).json();

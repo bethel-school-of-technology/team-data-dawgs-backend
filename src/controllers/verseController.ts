@@ -1,35 +1,6 @@
 import { Request, Response } from "express";
 import { Verse } from "../models/verse";
 
-/* Original
-export const getVerses = async (req: Request, res: Response) => {
-    try {
-        const verses = await Verse.findAll();
-        res.status(200).json(verses);
-    } catch (error) {
-        console.error("Error fetching verses:", error);
-        res.status(500).json({ error: "Error fetching verses" });
-    }
-}; //copy endpoint "index endpoint" + add optional category param -->This will redo code above */
-
-
- 
-/* Threw above code into GPT w the commented out note above, below is the result
-export const getVerses = async (req: Request, res: Response) => {
-    try {
-        const { category } = req.query;
-
-        const verses = category 
-            ? await Verse.findAll({ where: { category } }) 
-            : await Verse.findAll();
-
-        res.status(200).json(verses);
-    } catch (error) {
-        console.error("Error fetching verses:", error);
-        res.status(500).json({ error: "Error fetching verses" });
-    }
-}; */
-
 export const getVerses = async (req: Request, res: Response) => {
     try {
         const category = Array.isArray(req.query.category) 
@@ -68,10 +39,7 @@ export const updateVerse = async (req: Request, res: Response) => {
     let verseFound = await Verse.findByPk(id);
 
     if (verseFound) {
-      /*  await Verse.update(newVerse, {
-            where: { id: id }
-        });
-        res.status(200).json(); */
+      
     }
     else {
         res.status(400).json();

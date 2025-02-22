@@ -2,7 +2,7 @@ import {Request, Response} from "express";
 import {User} from "../models/user";
 
 
-interface Params{ //new
+interface Params{ 
     id: string,
 }
 
@@ -28,23 +28,6 @@ export const createUser = async (req: Request, res: Response) => {
     res.status(500).json({ error: "Error creating user" });
   }
 };
-
-// export const updateUser = async (req: Request, res: Response, next: any) => {
-//   try {
-//     const { id } = req.params;
-//     const { username, email, admin } = req.body;
-//     const user = await User.findByPk(id);
-//
-//     if (!user) {
-//       return res.status(404).json({ error: "User not found" });
-//     }
-//
-//     await user.update({ username, email, admin });
-//     res.json(user);
-//   } catch (error) {
-//     res.status(500).json({ error: "Error updating user" });
-//   }
-// };
 
 export const updateUser = async (req: Request, res: Response) => {
   let id = req.params.id;
